@@ -1,0 +1,57 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+class employee
+{
+	char name[20];
+	int ID;
+	double salary;
+	public:
+		void accept()
+		{
+			cout<<"\n enter name :";
+			cin>>name;
+			cout<<"\n enter the ID number :";
+			cin>>ID;
+			cout<<"\n enter the salary :";
+			cin>>salary;
+		}
+		void display()
+		{
+			cout<<"\n name is :"<<name;
+			cout<<"\n ID is :"<<ID;
+			cout<<"\n salary is :"<<salary;
+		}
+};
+
+
+int main()
+{
+	employee o[5];
+	fstream f;
+	int i,n;
+	
+	f.open("employee.txt");
+	cout<<"\n how many employee information do you need to store ?";
+	cin>>n;
+	cout<<"\n enter information of employee is as follow ";
+	for (int i=0;i<n;i++)
+	{
+		cout<<"\n enter infomation of :"<<i<<"\n employee ";
+		o[i].accept();
+		f.write((char*)&o[i],sizeof(o[i]));//instead of using >> this operator we use write funtion::
+		
+	}
+	f.close();
+	f.open("employee.txt",ios::in);
+	cout<<"\n information of employee is as follow :";
+	for (i=0;i<n;i++)
+	{
+		f.read((char*)&o[i],sizeof(o[i]));
+		o[i].display();
+	}
+	f.close();
+	return 0;
+	
+}
