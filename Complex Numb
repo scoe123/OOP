@@ -1,0 +1,68 @@
+#include <iostream>
+using namespace std;
+class complex
+{
+    private:
+    int real;
+    int img;
+    public:
+    complex(int a=0,int b=0)
+    {
+    	real=a;
+    	img=b;
+	}
+    complex operator+(complex &obj)
+    {
+        complex temp;
+        temp.real=real+obj.real;
+        temp.img=img+obj.img;
+        return temp;
+    }
+      complex operator*(complex &obj)
+    {
+        complex temp;
+        temp.real=real*obj.real;
+        temp.img=img*obj.img;
+        return temp;
+    }
+    // this syntax is unique for this operator << and >>
+    friend istream &operator>>(istream &inp,complex &loc);
+    friend ostream &operator<<(ostream &out,complex &loc);
+    
+	
+};
+istream &operator>>(istream &inp,complex &loc)
+	{
+		cout<<"enter the real part ::\n";
+		inp>>loc.real;
+		cout<<"enter the img part ::\n";
+		inp>>loc.img;
+		return inp;
+	}
+ostream &operator<<(ostream &out,complex &loc)
+	{
+		if (loc.img>=0)
+		{
+			out<<"\n"<<loc.real<<"+"<<loc.img<<"i";
+			
+		}
+		else
+		{
+			out<<"\n"<<loc.real<<loc.img<<"i";
+		}
+		return out;
+	}
+int main()
+{
+    complex c1,c2,c3;
+    cin>>c1;
+    cout<<c1;
+    
+    cin>>c2;
+    cout<<c2;
+    
+    c3=c1+c2;
+    cout<<"\n addition result \t"<<c3;
+    c3=c1*c2;
+    cout<<"\n multiplication result \t"<<c3;
+}
